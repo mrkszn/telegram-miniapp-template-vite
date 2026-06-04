@@ -7,6 +7,12 @@ import { test, expect } from '@playwright/test'
  */
 
 test('bootstraps auth and renders /example/dashboard', async ({ page, context }) => {
+  // The real telegram-web-app.js script (loaded from index.html) would
+  // overwrite our window.Telegram mock — block it.
+  await context.route('**/telegram-web-app.js', (route) =>
+    route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }),
+  )
+
   await context.addInitScript(() => {
     const win = window as unknown as {
       Telegram?: { WebApp?: Record<string, unknown> }
