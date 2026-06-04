@@ -1,11 +1,17 @@
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from '@/components/layout/ThemeProvider'
+import { RootRoute } from '@/routes/root'
+import { ExampleDashboard } from '@/routes/example/dashboard'
+
+const router = createBrowserRouter([
+  { path: '/', element: <RootRoute /> },
+  { path: '/example/dashboard', element: <ExampleDashboard /> },
+])
 
 export function App() {
   return (
     <ThemeProvider>
-      <div className="flex min-h-screen items-center justify-center bg-bg text-ink">
-        <p className="font-serif text-2xl italic">Mini App skeleton</p>
-      </div>
+      <RouterProvider router={router} />
     </ThemeProvider>
   )
 }

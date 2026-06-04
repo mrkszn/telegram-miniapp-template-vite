@@ -13,4 +13,18 @@ export default defineConfig({
     host: true,
     port: 5173,
   },
+  build: {
+    target: 'es2022',
+    // Tremor pulls in Recharts (~600 KB raw). Code-split charts into their
+    // own chunk so the auth/shell critical path stays small.
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          charts: ['@tremor/react'],
+          react: ['react', 'react-dom', 'react-router-dom'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 800,
+  },
 })

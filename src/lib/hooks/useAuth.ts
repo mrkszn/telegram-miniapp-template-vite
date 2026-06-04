@@ -29,8 +29,8 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthResult {
   const isBootstrapping = useSessionStore((s) => s.isBootstrapping)
   const error = useSessionStore((s) => s.error)
 
-  const apiBaseUrl = options.apiBaseUrl ?? import.meta.env.VITE_API_BASE_URL
-  const authEndpoint = options.authEndpoint ?? import.meta.env.VITE_AUTH_ENDPOINT
+  const apiBaseUrl = options.apiBaseUrl ?? import.meta.env.VITE_API_BASE_URL ?? ''
+  const authEndpoint = options.authEndpoint ?? import.meta.env.VITE_AUTH_ENDPOINT ?? '/auth/telegram'
   const disabled = options.disabled ?? false
 
   useEffect(() => {
